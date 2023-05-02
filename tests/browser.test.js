@@ -26,30 +26,39 @@ test('The stack should be empty in the beginning', async () => {
 
 
 test('Pushing and popping elements from the stack should update the top of stack', async () => {
-    // Hitta elementen på sidan
-    let pushButton = await driver.findElement(By.id('push'));
-    let popButton = await driver.findElement(By.id('pop'));
-    let peekButton = await driver.findElement(By.id('peek'));
-    let topOfStack = await driver.findElement(By.id('top_of_stack'));
-  
-    // Klicka på push-knappen och verifiera att stacken uppdaterades korrekt
-    await pushButton.click();
-    expect(await topOfStack.getText()).toBe("2"); //Fel med mening
-  
-    // Klicka på peek-knappen och verifiera att toppelementet returneras korrekt
-    await peekButton.click();
-    let alert = await driver.switchTo().alert().getText();
-    expect(alert).toBe("Top of stack: 1");
-    await driver.switchTo().alert().accept();
-  
-    // Klicka på push-knappen igen och verifiera att stacken uppdateras korrekt
-    await pushButton.click();
-    expect(await topOfStack.getText()).toBe("2");
-  
-    // Klicka på pop-knappen och verifiera att det översta elementet tas bort korrekt
-    await popButton.click();
-    expect(await topOfStack.getText()).toBe("1");
-  });
+  // Hitta elementen på sidan
+  let pushButton = await driver.findElement(By.id('push'));
+  let popButton = await driver.findElement(By.id('pop'));
+  let peekButton = await driver.findElement(By.id('peek'));
+  let topOfStack = await driver.findElement(By.id('top_of_stack'));
+
+  // Klicka på push-knappen och skriv in värdet i promptrutan
+  await pushButton.click();
+  let prompt = await driver.switchTo().alert();
+  await prompt.sendKeys('2'); // Fel med mening
+  await prompt.accept();
+
+  // Verifiera att stacken uppdaterades korrekt
+  expect(await topOfStack.getText()).toBe("1");
+
+  // Klicka på peek-knappen och verifiera att toppelementet returneras korrekt
+  await peekButton.click();
+  let alert = await driver.switchTo().alert().getText();
+  expect(alert).toBe("Top of stack: 1");
+  await driver.switchTo().alert().accept();
+
+  // Klicka på push-knappen igen och verifiera att stacken uppdateras korrekt
+  await pushButton.click();
+  prompt = await driver.switchTo().alert();
+  await prompt.sendKeys('2');
+  await prompt.accept();
+  expect(await topOfStack.getText()).toBe("2");
+
+  // Klicka på pop-knappen och verifiera att det översta elementet tas bort korrekt
+  await popButton.click();
+  expect(await topOfStack.getText()).toBe("1");
+});
+
   
 
 
