@@ -1,0 +1,14 @@
+{
+  "name": "testing-with-jest",
+  "version": "1.0.0",
+  "description": "A jest + npm lab session",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest tests"
+  },
+  "author": "Mohanad",
+  "license": "ISC"
+}
