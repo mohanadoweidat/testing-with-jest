@@ -35,7 +35,7 @@ test('Pushing and popping elements from the stack should update the top of stack
   // Klicka på push-knappen och skriv in värdet i promptrutan
   await pushButton.click();
   let prompt = await driver.switchTo().alert();
-  await prompt.sendKeys('2'); // Fel med mening
+  await prompt.sendKeys('1'); // Rättat felet
   await prompt.accept();
 
   // Verifiera att stacken uppdaterades korrekt
@@ -43,9 +43,8 @@ test('Pushing and popping elements from the stack should update the top of stack
 
   // Klicka på peek-knappen och verifiera att toppelementet returneras korrekt
   await peekButton.click();
-  let alert = await driver.switchTo().alert().getText();
-  expect(alert).toBe("Top of stack: 1");
-  await driver.switchTo().alert().accept();
+  expect(await topOfStack.getText()).toContain("1");
+
 
   // Klicka på push-knappen igen och verifiera att stacken uppdateras korrekt
   await pushButton.click();
@@ -56,8 +55,15 @@ test('Pushing and popping elements from the stack should update the top of stack
 
   // Klicka på pop-knappen och verifiera att det översta elementet tas bort korrekt
   await popButton.click();
+  prompt = await driver.switchTo().alert();
+  expect(await prompt.getText()).toBe("Tog bort 2");
+  await prompt.accept();
+  
+  // Klicka på peek-knappen och verifiera att toppelementet returneras korrekt
+  await peekButton.click();
   expect(await topOfStack.getText()).toBe("1");
 });
+
 
   
 
